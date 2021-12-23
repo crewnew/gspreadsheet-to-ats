@@ -10,17 +10,18 @@ if (!ini_set('default_socket_timeout', 15)) echo "unable to change socket timeou
 $i = 0; //just to skip the first line in the CSV
 
 echo '<h2>Google Spreadsheet -> ATS (GraphQL)</h2>';
+echo '<table><tr><th>Project ID</th><th>Name</th><th>Title</th><th>Company</th></tr>';
 
 if (($handle = fopen($spreadsheet_url, "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         if ($i > 0) { //skip the first line
-            $project = $data[0];
+            $project_id = $data[0];
             $first_name = $data[1];
             $last_name = $data[2];
             $title = $data[3];
             $company = $data[4];
 
-            echo $project . ' - ' . $first_name . '<br>';
+            echo '<tr><td>' . $project_id . '</td><td>' . $first_name . ' ' . $last_name . '</td><td>' . $title . '</td><td>' . $company . '</td></tr>';
         } //end: skip the first line
         $i++;
     }
